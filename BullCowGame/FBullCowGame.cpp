@@ -19,6 +19,32 @@ int32 FBullCowGame::GetMaxTries() const
 	return WordLengthToMaxTries[MyHiddenWord.length()]; 
 }
 
+void FBullCowGame::SetDifficulty(int32 Level)
+{
+	switch (Level)
+	{
+	case 3:
+		MyHiddenWord = "ant";
+		break;
+	case 4:
+		MyHiddenWord = "face";
+		break;
+	case 5:
+		MyHiddenWord = "major";
+		break;
+	case 6:
+		MyHiddenWord = "planet";
+		break;
+	case 7:
+		MyHiddenWord = "therapy";
+		break;
+	default:
+		MyHiddenWord = "ant";
+		break;
+	}
+	return;
+}
+
 void FBullCowGame::Reset()
 {
 	const FString HIDDEN_WORD = "plane"; // hidden word must be an Isogram

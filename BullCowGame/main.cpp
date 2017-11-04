@@ -18,6 +18,7 @@ void PlayGame();
 FText GetValidGuess();
 bool AskToPlayAgain();
 void PrintGameSummary();
+int32 GetDifficulty();
 
 FBullCowGame BCGame;					//Instantiate a new game
 
@@ -35,6 +36,7 @@ int main()
 void PlayGame()
 {
 	BCGame.Reset();
+	BCGame.SetDifficulty(GetDifficulty());
 	int32 MaxTries = BCGame.GetMaxTries();
 
 	// loop asking for guesses while the game is not won and while there are still tries remaining.
@@ -91,7 +93,8 @@ FText GetValidGuess() //get a guess from the player
 			break;
 		default:
 			break;
-		} std::cout << std::endl;
+		} 
+		std::cout << std::endl;
 	} while (Status != EGuessStatus::OK); // keep looping until we get "OK" status
 	return Guess;
 }
@@ -101,6 +104,7 @@ bool AskToPlayAgain()
 	std::cout << "Do you want to play again with the same hidden word? (y/n) ";
 	FText Response = "";
 	getline(std::cin, Response);
+	std::cout << std::endl;
 	
 	return (Response[0] == 'y') || (Response[0] == 'Y');
 }
@@ -115,4 +119,20 @@ void PrintGameSummary()
 	{
 		std::cout << "Better luck next time.\n\n";
 	}
+}
+
+int32 GetDifficulty()
+{
+	FText Response = "";
+	int32 DifficultyLevel = 0;
+	do
+	{
+		std::cout << "Please enter the amount of letters in the word you want to guess 3(easiest) to 7(hardest): ";
+		getline(std::cin, Response);
+		DifficultyLevel = stoi(Response);
+
+	}
+	while (!(DifficultyLevel <= 7 && DifficultyLevel >= 3));
+	std::cout << std::endl;
+	return DifficultyLevel;
 }
